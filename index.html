@@ -2,6 +2,8 @@
 <html lang="ar" dir="rtl" class="light">
 <head>
     <meta charset="UTF-8">
+    <!-- السطر التالي هو الذي يحل مشكلة تصغير الشاشة على الهواتف -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>حلقات جامع لطيفة بنت أحمد الموسى لتعليم القرآن الكريم</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -227,7 +229,7 @@
                                 </div>
 
                                 <div id="sec-tajweed" class="hidden-section dynamic-part">
-                                    <div class="grid grid-cols-3 gap-4">
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                         <div>
                                             <label class="block text-sm mb-2">المستوى *</label>
                                             <select id="tajweedLevel" class="w-full border dark:border-slate-600 bg-white dark:bg-slate-700 p-2 rounded-lg dyn-req">
@@ -691,7 +693,6 @@
             }
             else if (p === 'حفظ القرآن الكريم') { 
                 record.levelOrJuz = document.getElementById('hifzJuz').value; 
-                // تفعيل الموجهة برمجياً للـ 5 أجزاء وحفظ القرآن كاملاً
                 if (record.levelOrJuz.includes('خمسة') || record.levelOrJuz.includes('كاملاً')) {
                     record.needsSupervisor = true;
                 }
