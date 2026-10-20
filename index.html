@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <!-- التعديل هنا: العنوان الذي يظهر في المتصفح -->
     <title>حجز اختبارات حلقات جامع لطيفة بنت أحمد الموسى لتعليم القرآن الكريم</title>
     
-    <!-- التعديل هنا: أكواد مخصصة لظهور الرابط بشكل مميز على الواتساب ووسائل التواصل -->
     <meta property="og:title" content="حجز اختبارات حلقات جامع لطيفة بنت أحمد الموسى لتعليم القرآن الكريم">
     <meta property="og:description" content="نظام إلكتروني لتسجيل وحجز الاختبارات لمعلمات وطالبات حلقات جامع لطيفة بنت أحمد الموسى.">
     <meta property="og:image" content="https://i.postimg.cc/3wHnSY85/ltyft.jpg">
@@ -98,6 +96,7 @@
         </div>
     </div>
 
+    <!-- شاشة تسجيل الدخول -->
     <div id="loginView" class="min-h-screen flex flex-col items-center justify-center islamic-bg p-4">
         <div class="bg-white dark:bg-slate-800 rounded-2xl card-shadow p-8 max-w-md w-full text-center fade-in relative border dark:border-slate-700 mb-8">
             <div class="divider-gold absolute top-0 right-8 left-8 rounded-full"></div>
@@ -122,6 +121,7 @@
         </div>
     </div>
 
+    <!-- التطبيق الرئيسي -->
     <div id="appView" class="hidden-section flex-1 flex flex-col">
         <header class="islamic-bg text-white shadow-md transition-colors duration-300">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3">
@@ -158,6 +158,7 @@
 
         <main class="flex-1 p-4 md:p-8">
             <div class="max-w-7xl mx-auto">
+                <!-- تبويب تسجيل الاختبار -->
                 <div id="formTab" class="fade-in">
                     <div class="bg-white dark:bg-slate-800 rounded-xl card-shadow overflow-hidden border dark:border-slate-700 transition-colors duration-300">
                         <form id="testForm" onsubmit="submitForm(event)" class="p-6 md:p-8">
@@ -166,11 +167,17 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                                 <div>
                                     <label class="block text-sm font-medium mb-2">اسم المعلمة *</label>
-                                    <select id="teacherName" class="w-full px-4 py-2 rounded-lg border dark:border-slate-600 bg-white dark:bg-slate-700 outline-none transition" required></select>
+                                    <select id="teacherName" class="w-full px-4 py-2 rounded-lg border dark:border-slate-600 bg-white dark:bg-slate-700 outline-none transition" required onchange="onTeacherSelected()"></select>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-2">اسم الطالبة (الرباعي) *</label>
-                                    <input type="text" id="studentName" class="w-full px-4 py-2 rounded-lg border dark:border-slate-600 bg-white dark:bg-slate-700 outline-none transition" required>
+                                    <label class="block text-sm font-medium mb-2">اسم الطالبة *</label>
+                                    <select id="studentSelect" class="w-full px-4 py-2 rounded-lg border dark:border-slate-600 bg-white dark:bg-slate-700 outline-none transition" required onchange="onStudentSelectChanged()">
+                                        <option value="">-- اختر المعلمة أولاً --</option>
+                                    </select>
+                                    <div id="newStudentInputWrap" class="mt-2 hidden-section">
+                                        <input type="text" id="customStudentName" placeholder="أدخل اسم الطالبة الجديد (الرباعي)..." class="w-full px-4 py-2 rounded-lg border border-accent bg-amber-50/50 dark:bg-slate-700 outline-none transition text-sm">
+                                        <p class="text-[11px] text-accent mt-1">سيتم حفظ هذه الطالبة تلقائياً ضمن قائمة طالباتكِ للمرات القادمة.</p>
+                                    </div>
                                 </div>
                                 
                                 <div class="md:col-span-2">
@@ -282,6 +289,7 @@
                     </div>
                 </div>
 
+                <!-- تبويب الإدارة -->
                 <div id="adminTab" class="hidden-section fade-in">
                     <div id="adminGate" class="flex items-center justify-center py-16">
                         <div class="bg-white dark:bg-slate-800 border dark:border-slate-700 rounded-2xl card-shadow p-8 max-w-sm w-full text-center">
@@ -305,6 +313,59 @@
                     </div>
 
                     <div id="dashboardContent" class="hidden-section">
+                        <!-- زر فتح الشيت وشريط الإجراءات السريعة -->
+                        <div class="bg-white dark:bg-slate-800 border dark:border-slate-700 rounded-xl card-shadow p-4 mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div>
+                                <h3 class="font-bold text-primary dark:text-teal-400 text-base">لوحة التحكم السحابية المباشرة</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">يمكنك تعديل البيانات محلياً أو الاطلاع عليها مباشرة في Google Sheets</p>
+                            </div>
+                            <a href="https://docs.google.com/spreadsheets/d/1Dxx4SQZ6Ewruc189MF7FoGqcK_irRAwXGaQ8aSR4pYI/edit?usp=sharing" target="_blank" class="px-5 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg font-bold text-sm shadow-md flex items-center gap-2 transition">
+                                <i class="fa-solid fa-file-excel"></i> فتح ملف الشيت في Google Sheets
+                            </a>
+                        </div>
+
+                        <!-- قسم إدارة المعلمات وقوائم الطالبات -->
+                        <div class="bg-white dark:bg-slate-800 border dark:border-slate-700 rounded-xl card-shadow p-5 mb-8">
+                            <h3 class="font-bold text-primary dark:text-teal-400 border-b-2 border-accent/30 pb-2 mb-4 flex items-center justify-between">
+                                <span class="flex items-center gap-2"><i class="fa-solid fa-user-graduate"></i> إدارة المعلمات وقوائم الطالبات</span>
+                                <button onclick="openAddTeacherModal()" class="text-xs btn-primary text-white px-3 py-1.5 rounded-lg shadow font-medium">
+                                    <i class="fa-solid fa-user-plus mr-1"></i> إضافة معلمة جديدة
+                                </button>
+                            </h3>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <!-- قائمة المعلمات -->
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">اختر المعلمة للتعديل على طالباتها</label>
+                                    <select id="adminTeacherSelector" class="w-full px-4 py-2.5 rounded-lg border dark:border-slate-600 bg-white dark:bg-slate-700 outline-none transition font-medium" onchange="renderAdminStudentsList()"></select>
+                                    <div class="flex gap-2 mt-3">
+                                        <button onclick="editCurrentTeacherName()" class="flex-1 py-1.5 border border-slate-300 dark:border-slate-600 text-xs rounded hover:bg-slate-50 dark:hover:bg-slate-700 transition">
+                                            <i class="fa-solid fa-pen mr-1"></i> تعديل اسم المعلمة
+                                        </button>
+                                        <button onclick="deleteCurrentTeacher()" class="py-1.5 px-3 border border-red-200 text-red-600 text-xs rounded hover:bg-red-50 dark:hover:bg-red-900/30 transition">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- قائمة الطالبات الخاصة بالمعلمة -->
+                                <div class="md:col-span-2">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="text-sm font-bold text-slate-700 dark:text-slate-300">
+                                            طالبات المعلمة: <span id="currentTeacherSelectedLabel" class="text-accent"></span> (<span id="currentTeacherStudentsCount">0</span> طالبة)
+                                        </span>
+                                        <button onclick="openAddStudentModal()" class="text-xs bg-teal-600 hover:bg-teal-700 text-white px-3 py-1.5 rounded-lg shadow font-medium">
+                                            <i class="fa-solid fa-plus mr-1"></i> إضافة طالبات للمعلمة
+                                        </button>
+                                    </div>
+                                    <div class="border dark:border-slate-700 rounded-lg max-h-72 overflow-y-auto divide-y dark:divide-slate-700 bg-slate-50/50 dark:bg-slate-900/50" id="adminStudentsContainer">
+                                        <!-- توليد الطالبات برمجياً -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- الإحصائيات العامة -->
                         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
                             <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border dark:border-slate-700 card-shadow flex gap-3 items-center">
                                 <div class="text-2xl text-primary dark:text-teal-400"><i class="fa-solid fa-users"></i></div>
@@ -332,6 +393,7 @@
                             </div>
                         </div>
 
+                        <!-- استعراض تفصيلي وفلترة -->
                         <div class="bg-white dark:bg-slate-800 border dark:border-slate-700 rounded-xl card-shadow p-5 mb-8">
                             <h3 class="font-bold text-primary dark:text-teal-400 border-b-2 border-accent/30 pb-2 mb-4 flex items-center gap-2">
                                 <i class="fa-solid fa-magnifying-glass"></i> استعراض تفصيلي (مع فلترة المدة الزمنية)
@@ -402,6 +464,7 @@
                             </div>
                         </div>
 
+                        <!-- الترتيب والسجل الكامل -->
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                             <div class="lg:col-span-1 bg-white dark:bg-slate-800 border dark:border-slate-700 rounded-xl card-shadow p-4">
                                 <h3 class="font-bold text-primary dark:text-teal-400 border-b-2 border-accent/30 pb-2 mb-3">ترتيب إنجاز المعلمات</h3>
@@ -429,10 +492,44 @@
         </main>
     </div>
 
+    <!-- نافذة إضافة طالبات للمعلمة -->
+    <div id="addStudentModal" class="hidden-section fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+        <div class="bg-white dark:bg-slate-800 border dark:border-slate-700 rounded-2xl p-6 max-w-md w-full card-shadow fade-in">
+            <h3 class="text-base font-bold text-primary dark:text-teal-400 mb-1">إضافة طالبات للمعلمة</h3>
+            <p class="text-xs text-slate-500 mb-4" id="modalTeacherTargetName"></p>
+            
+            <label class="block text-xs font-bold mb-1">اكتبي أسماء الطالبات (يمكنكِ كتابة اسم واحد أو لصق قائمة أسماء مفصولة بسطور جديدة):</label>
+            <textarea id="bulkStudentsInput" rows="5" class="w-full border dark:border-slate-600 bg-white dark:bg-slate-700 p-3 rounded-lg text-sm outline-none mb-4" placeholder="فاطمة أحمد علي&#10;مريم محمد إبراهيم&#10;نورة عبد الله"></textarea>
+            
+            <div class="flex gap-2">
+                <button onclick="saveStudentsToTeacherModal()" class="flex-1 btn-primary text-white font-bold py-2 rounded-lg text-sm shadow">حفظ الطالبات</button>
+                <button onclick="closeAddStudentModal()" class="px-4 py-2 border rounded-lg text-sm text-slate-500">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة نقل الطالبة لمعلمة أخرى -->
+    <div id="transferStudentModal" class="hidden-section fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+        <div class="bg-white dark:bg-slate-800 border dark:border-slate-700 rounded-2xl p-6 max-w-sm w-full card-shadow fade-in">
+            <h3 class="text-base font-bold text-primary dark:text-teal-400 mb-2">نقل طالبة لمعلمة أخرى</h3>
+            <p class="text-sm mb-4">اسم الطالبة: <span id="transferStudentName" class="font-bold text-accent"></span></p>
+            
+            <label class="block text-xs font-bold mb-2">اختر المعلمة المراد نقل الطالبة إليها:</label>
+            <select id="transferTargetTeacherSelect" class="w-full px-4 py-2 border dark:border-slate-600 bg-white dark:bg-slate-700 rounded-lg text-sm outline-none mb-5"></select>
+            
+            <div class="flex gap-2">
+                <button onclick="confirmTransferStudent()" class="flex-1 btn-primary text-white font-bold py-2 rounded-lg text-sm shadow">تأكيد النقل</button>
+                <button onclick="closeTransferStudentModal()" class="px-4 py-2 border rounded-lg text-sm text-slate-500">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- رسائل التوست -->
     <div id="toast" class="fixed bottom-4 right-4 bg-secondary dark:bg-teal-600 text-white px-6 py-3 rounded-lg opacity-0 transition-all z-50 shadow-lg border dark:border-teal-500">
         <span id="toastMsg">تم بنجاح!</span>
     </div>
 
+    <!-- نافذة النجاح -->
     <div id="successModal" class="hidden-section fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-40 p-4">
         <div class="bg-white dark:bg-slate-800 border dark:border-slate-700 rounded-2xl p-8 max-w-sm w-full text-center card-shadow fade-in">
             <i class="fa-solid fa-circle-check text-5xl text-secondary dark:text-teal-400 mb-3"></i>
@@ -452,6 +549,7 @@
         </div>
     </div>
 
+    <!-- شاشة الطباعة والملخص -->
     <div id="printSummaryView" class="hidden-section fixed inset-0 bg-white dark:bg-slate-900 z-50 overflow-y-auto">
         <div class="w-full mx-auto p-4 md:p-8">
             <div class="flex justify-between items-center mb-6 no-print">
@@ -494,7 +592,6 @@
             </div>
             
             <p class="text-center text-xs text-slate-400 mt-8 mb-2 no-print">تم إنشاء هذا الملخص آلياً من نظام تسجيل الاختبارات ويتضمن نفس الحقول المرسلة عبر البريد الإلكتروني.</p>
-            
             <p class="text-center text-xs text-slate-500 font-medium">إعداد وتصميم : أميرة محمد السيد 36837886</p>
         </div>
     </div>
@@ -504,10 +601,276 @@
 
         const APP_PASSWORD = "1234";
         const ADMIN_PASSWORD = "4321";
+        
         let dbData = [];
         let lastSavedTeacher = "";
         let lastCcEmail = "";
 
+        // القائمة الافتراضية للمعلمات لتعمل في ثانية 0 حتى قبل وصول اتصال الإنترنت
+        const DEFAULT_TEACHERS = [
+            'أميرة محمد السيد إبراهيم', 'نبيلة أحمد محمد علي', 'ميمونة المحمود', 
+            'زينب يسري', 'عائشة البوسميط', 'مروة عبد اللطيف', 'هند', 'أنفال', 'صافيناز', 'نورا فؤاد'
+        ];
+
+        let teachersData = [];
+        let transferStudentContext = { student: '', fromTeacher: '' };
+
+        // نظام التخزين المؤقت المحلي الذكي
+        function initTeachersData() {
+            const cached = localStorage.getItem('cachedTeachersData');
+            if (cached) {
+                try {
+                    teachersData = JSON.parse(cached);
+                } catch(e) { teachersData = []; }
+            }
+            if (!teachersData || teachersData.length === 0) {
+                teachersData = DEFAULT_TEACHERS.map(t => ({ teacher: t, students: [] }));
+            }
+            populateTeachersDropdowns();
+            syncTeachersFromCloud();
+        }
+
+        function syncTeachersFromCloud() {
+            fetch(SCRIPT_URL + '?action=getTeachersAndStudents')
+            .then(res => res.json())
+            .then(data => {
+                if (Array.isArray(data) && data.length > 0) {
+                    teachersData = data;
+                    localStorage.setItem('cachedTeachersData', JSON.stringify(data));
+                    populateTeachersDropdowns();
+                    if (sessionStorage.getItem('isAdminUnlocked') === 'true') {
+                        renderAdminStudentsList();
+                    }
+                }
+            })
+            .catch(err => console.log('يعمل بالنظام المحلي المؤقت: ' + err.message));
+        }
+
+        function saveTeachersToCloud() {
+            localStorage.setItem('cachedTeachersData', JSON.stringify(teachersData));
+            populateTeachersDropdowns();
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify({ action: 'saveTeachersAndStudents', data: teachersData }),
+                redirect: 'follow'
+            }).then(() => showToast('تم تحديث الشيت السحابي بنجاح!'))
+              .catch(e => console.log(e));
+        }
+
+        function populateTeachersDropdowns() {
+            const select = document.getElementById('teacherName');
+            const picker = document.getElementById('teacherPicker');
+            const adminSelect = document.getElementById('adminTeacherSelector');
+
+            const currentVal = select.value;
+            const currentAdmin = adminSelect.value;
+
+            const options = '<option value="">اختر...</option>' + teachersData.map(t => `<option value="${t.teacher}">${t.teacher}</option>`).join('');
+            select.innerHTML = options;
+            picker.innerHTML = '<option value="">-- اختر المعلمة --</option>' + teachersData.map(t => `<option value="${t.teacher}">${t.teacher}</option>`).join('');
+            adminSelect.innerHTML = teachersData.map(t => `<option value="${t.teacher}">${t.teacher}</option>`).join('');
+
+            if (currentVal) select.value = currentVal;
+            if (currentAdmin) adminSelect.value = currentAdmin;
+            
+            onTeacherSelected();
+        }
+
+        function onTeacherSelected() {
+            const tName = document.getElementById('teacherName').value;
+            const sSelect = document.getElementById('studentSelect');
+            const customWrap = document.getElementById('newStudentInputWrap');
+            
+            customWrap.classList.add('hidden-section');
+            document.getElementById('customStudentName').value = '';
+
+            if (!tName) {
+                sSelect.innerHTML = '<option value="">-- اختر المعلمة أولاً --</option>';
+                return;
+            }
+
+            const item = teachersData.find(t => t.teacher === tName);
+            const students = item ? item.students : [];
+
+            let opts = '<option value="">-- اختر الطالبة --</option>';
+            students.forEach(s => {
+                opts += `<option value="${s}">${s}</option>`;
+            });
+            opts += '<option value="__OTHER__" style="color:#c8912b; font-weight:bold;">➕ أخرى (إضافة طالبة جديدة)</option>';
+            sSelect.innerHTML = opts;
+        }
+
+        function onStudentSelectChanged() {
+            const val = document.getElementById('studentSelect').value;
+            const customWrap = document.getElementById('newStudentInputWrap');
+            if (val === '__OTHER__') {
+                customWrap.classList.remove('hidden-section');
+                document.getElementById('customStudentName').focus();
+            } else {
+                customWrap.classList.add('hidden-section');
+                document.getElementById('customStudentName').value = '';
+            }
+        }
+
+        // إدارة المعلمات والطالبات في لوحة الإدارة
+        function renderAdminStudentsList() {
+            const select = document.getElementById('adminTeacherSelector');
+            const tName = select.value;
+            document.getElementById('currentTeacherSelectedLabel').innerText = tName || '-';
+            
+            const container = document.getElementById('adminStudentsContainer');
+            if (!tName) {
+                container.innerHTML = '<div class="p-4 text-center text-slate-400 text-sm">اختر معلمة لعرض طالباتها</div>';
+                document.getElementById('currentTeacherStudentsCount').innerText = '0';
+                return;
+            }
+
+            const item = teachersData.find(t => t.teacher === tName);
+            const students = item ? item.students : [];
+            document.getElementById('currentTeacherStudentsCount').innerText = students.length;
+
+            if (!students || students.length === 0) {
+                container.innerHTML = '<div class="p-6 text-center text-slate-400 text-sm">لا توجد طالبات مسجلات لهذه المعلمة حتى الآن.<br>اضغطي "إضافة طالبات للمعلمة" بالأعلى للإضافة.</div>';
+                return;
+            }
+
+            container.innerHTML = students.map((s, idx) => `
+                <div class="p-2.5 flex items-center justify-between hover:bg-white dark:hover:bg-slate-800 transition text-sm">
+                    <span class="font-medium"><span class="text-xs text-slate-400 ml-2 font-mono">${idx+1}.</span> ${s}</span>
+                    <div class="flex items-center gap-1.5">
+                        <button onclick="openTransferModal('${s.replace(/'/g, "\\'")}', '${tName.replace(/'/g, "\\'")}')" class="px-2.5 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300 rounded text-xs transition" title="نقل لمعلمة أخرى">
+                            <i class="fa-solid fa-arrow-right-arrow-left mr-1"></i> نقل
+                        </button>
+                        <button onclick="deleteStudentFromTeacher('${s.replace(/'/g, "\\'")}', '${tName.replace(/'/g, "\\'")}')" class="px-2 py-1 bg-red-50 hover:bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-300 rounded text-xs transition" title="حذف">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openAddTeacherModal() {
+            const name = prompt('أدخلي اسم المعلمة الجديدة:');
+            if (name && name.trim()) {
+                const trimmed = name.trim();
+                if (teachersData.some(t => t.teacher === trimmed)) {
+                    alert('اسم المعلمة موجود بالفعل!');
+                    return;
+                }
+                teachersData.push({ teacher: trimmed, students: [] });
+                saveTeachersToCloud();
+                document.getElementById('adminTeacherSelector').value = trimmed;
+                renderAdminStudentsList();
+                showToast('تمت إضافة المعلمة بنجاح!');
+            }
+        }
+
+        function editCurrentTeacherName() {
+            const current = document.getElementById('adminTeacherSelector').value;
+            if (!current) return;
+            const newName = prompt('تعديل اسم المعلمة:', current);
+            if (newName && newName.trim() && newName.trim() !== current) {
+                const trimmed = newName.trim();
+                const item = teachersData.find(t => t.teacher === current);
+                if (item) {
+                    item.teacher = trimmed;
+                    saveTeachersToCloud();
+                    document.getElementById('adminTeacherSelector').value = trimmed;
+                    renderAdminStudentsList();
+                    showToast('تم تعديل اسم المعلمة بنجاح!');
+                }
+            }
+        }
+
+        function deleteCurrentTeacher() {
+            const current = document.getElementById('adminTeacherSelector').value;
+            if (!current) return;
+            if (confirm(`هل أنتِ متأكدة من حذف المعلمة (${current}) وجميع طالباتها؟`)) {
+                teachersData = teachersData.filter(t => t.teacher !== current);
+                saveTeachersToCloud();
+                renderAdminStudentsList();
+                showToast('تم حذف المعلمة!');
+            }
+        }
+
+        function openAddStudentModal() {
+            const current = document.getElementById('adminTeacherSelector').value;
+            if (!current) { alert('اختر المعلمة أولاً'); return; }
+            document.getElementById('modalTeacherTargetName').innerText = 'للمعلمة: ' + current;
+            document.getElementById('bulkStudentsInput').value = '';
+            document.getElementById('addStudentModal').classList.remove('hidden-section');
+        }
+
+        function closeAddStudentModal() {
+            document.getElementById('addStudentModal').classList.add('hidden-section');
+        }
+
+        function saveStudentsToTeacherModal() {
+            const current = document.getElementById('adminTeacherSelector').value;
+            const text = document.getElementById('bulkStudentsInput').value;
+            if (!text.trim()) { closeAddStudentModal(); return; }
+
+            const lines = text.split(/[\n,]/).map(s => s.trim()).filter(s => s.length > 0);
+            const item = teachersData.find(t => t.teacher === current);
+            if (item) {
+                lines.forEach(s => {
+                    if (!item.students.includes(s)) item.students.push(s);
+                });
+                saveTeachersToCloud();
+                renderAdminStudentsList();
+                closeAddStudentModal();
+                showToast(`تمت إضافة ${lines.length} طالبة بنجاح!`);
+            }
+        }
+
+        function deleteStudentFromTeacher(studentName, teacherName) {
+            if (confirm(`هل تريدين حذف الطالبة (${studentName}) من قائمة المعلمة (${teacherName})؟`)) {
+                const item = teachersData.find(t => t.teacher === teacherName);
+                if (item) {
+                    item.students = item.students.filter(s => s !== studentName);
+                    saveTeachersToCloud();
+                    renderAdminStudentsList();
+                    showToast('تم حذف الطالبة.');
+                }
+            }
+        }
+
+        function openTransferModal(studentName, fromTeacher) {
+            transferStudentContext = { student: studentName, fromTeacher: fromTeacher };
+            document.getElementById('transferStudentName').innerText = studentName;
+            
+            const select = document.getElementById('transferTargetTeacherSelect');
+            select.innerHTML = teachersData
+                .filter(t => t.teacher !== fromTeacher)
+                .map(t => `<option value="${t.teacher}">${t.teacher}</option>`).join('');
+
+            document.getElementById('transferStudentModal').classList.remove('hidden-section');
+        }
+
+        function closeTransferStudentModal() {
+            document.getElementById('transferStudentModal').classList.add('hidden-section');
+        }
+
+        function confirmTransferStudent() {
+            const toTeacher = document.getElementById('transferTargetTeacherSelect').value;
+            const { student, fromTeacher } = transferStudentContext;
+            if (!toTeacher) return;
+
+            const fromItem = teachersData.find(t => t.teacher === fromTeacher);
+            const toItem = teachersData.find(t => t.teacher === toTeacher);
+
+            if (fromItem && toItem) {
+                fromItem.students = fromItem.students.filter(s => s !== student);
+                if (!toItem.students.includes(student)) toItem.students.push(student);
+                saveTeachersToCloud();
+                renderAdminStudentsList();
+                closeTransferStudentModal();
+                showToast(`تم نقل (${student}) إلى (${toTeacher}) بنجاح!`);
+            }
+        }
+
+        // الساعة والتاريخ
         function getFormattedDateWithDay(dateStr) {
             if (!dateStr || dateStr === '-') return '-';
             const d = new Date(dateStr);
@@ -543,14 +906,6 @@
             }
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            const icon = document.getElementById('themeIcon');
-            if (document.documentElement.classList.contains('dark')) {
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-            }
-        });
-
         function updateDayName() {
             const dateInput = document.getElementById('testDate').value;
             const displaySpan = document.getElementById('dayNameDisplay');
@@ -564,12 +919,7 @@
         }
 
         window.onload = () => {
-            const teachers = ['أميرة محمد السيد إبراهيم', 'نبيلة أحمد محمد علي', 'ميمونة المحمود', 'زينب يسري', 'عائشة البوسميط', 'مروة عبد اللطيف', 'هند', 'أنفال', 'صافيناز', 'نورا فؤاد'];
-            const select = document.getElementById('teacherName');
-            select.innerHTML = '<option value="">اختر...</option>' + teachers.map(t => `<option value="${t}">${t}</option>`).join('');
-
-            const teacherPicker = document.getElementById('teacherPicker');
-            teacherPicker.innerHTML = '<option value="">-- اختر المعلمة --</option>' + teachers.map(t => `<option value="${t}">${t}</option>`).join('');
+            initTeachersData();
 
             const juz = document.getElementById('hifzJuz');
             const hifzOptions = [
@@ -630,6 +980,7 @@
                 if (sessionStorage.getItem('isAdminUnlocked') === 'true') {
                     document.getElementById('adminGate').classList.add('hidden-section');
                     loadServerData();
+                    renderAdminStudentsList();
                 } else {
                     document.getElementById('adminGate').classList.remove('hidden-section');
                     document.getElementById('loadingData').classList.add('hidden-section');
@@ -644,6 +995,7 @@
                 sessionStorage.setItem('isAdminUnlocked', 'true');
                 document.getElementById('adminGate').classList.add('hidden-section');
                 loadServerData();
+                renderAdminStudentsList();
             } else {
                 document.getElementById('adminLoginError').classList.remove('hidden-section');
             }
@@ -678,18 +1030,39 @@
                 return;
             }
 
+            const selectedStudent = document.getElementById('studentSelect').value;
+            let finalStudentName = selectedStudent;
+            let isNew = false;
+
+            if (selectedStudent === '__OTHER__') {
+                const customName = document.getElementById('customStudentName').value.trim();
+                if (!customName) {
+                    alert('الرجاء كتابة اسم الطالبة الجديد.');
+                    document.getElementById('customStudentName').focus();
+                    return;
+                }
+                finalStudentName = customName;
+                isNew = true;
+            } else if (!selectedStudent) {
+                alert('الرجاء اختيار اسم الطالبة.');
+                return;
+            }
+
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري الحفظ في السيرفر...';
             btn.disabled = true;
 
             const p = programEl.value;
+            const currentTeacher = document.getElementById('teacherName').value;
+
             let record = {
                 timestamp: new Date().toLocaleString('ar-SA'),
-                teacher: document.getElementById('teacherName').value,
-                studentName: document.getElementById('studentName').value,
+                teacher: currentTeacher,
+                studentName: finalStudentName,
                 studentId: '-', 
                 testDate: document.getElementById('testDate').value,
                 program: p, levelOrJuz: '-', testType: '-', score: '-', notes: document.getElementById('notes').value, needsSupervisor: false,
-                ccEmail: document.getElementById('ccEmail').value.trim()
+                ccEmail: document.getElementById('ccEmail').value.trim(),
+                isNewStudent: isNew
             };
 
             if (p === 'اقرأ وارتق') { 
@@ -714,10 +1087,8 @@
 
             fetch(SCRIPT_URL, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'text/plain;charset=utf-8',
-                },
-                body: JSON.stringify(record),
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify({ action: 'saveRecord', record: record }),
                 redirect: 'follow'
             })
             .then(response => response.json())
@@ -726,6 +1097,15 @@
                     lastSavedTeacher = record.teacher;
                     lastCcEmail = record.ccEmail;
                     
+                    // تحديث الطالبات محلياً فوراً إذا كانت جديدة
+                    if (isNew) {
+                        const item = teachersData.find(t => t.teacher === currentTeacher);
+                        if (item && !item.students.includes(finalStudentName)) {
+                            item.students.push(finalStudentName);
+                            localStorage.setItem('cachedTeachersData', JSON.stringify(teachersData));
+                        }
+                    }
+
                     document.getElementById('testForm').reset();
                     document.getElementById('dayNameDisplay').innerText = ''; 
                     resetDynamicProgramFields();
@@ -752,15 +1132,19 @@
             document.getElementById('dynamicSections').classList.add('hidden-section');
             document.querySelectorAll('.dynamic-part').forEach(el => el.classList.add('hidden-section'));
             document.querySelectorAll('.dyn-req').forEach(el => el.removeAttribute('required'));
+            document.getElementById('newStudentInputWrap').classList.add('hidden-section');
         }
 
         function closeSuccessModal() { document.getElementById('successModal').classList.add('hidden-section'); }
 
         function startNewEntry() {
             closeSuccessModal();
-            if (lastSavedTeacher) document.getElementById('teacherName').value = lastSavedTeacher;
+            if (lastSavedTeacher) {
+                document.getElementById('teacherName').value = lastSavedTeacher;
+                onTeacherSelected();
+            }
             if (lastCcEmail) document.getElementById('ccEmail').value = lastCcEmail;
-            document.getElementById('studentName').focus();
+            document.getElementById('studentSelect').focus();
         }
 
         function openPrintSummary() {
@@ -978,4 +1362,4 @@
         }
     </script>
 </body>
-</html> 
+</html>
